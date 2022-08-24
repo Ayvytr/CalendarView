@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: '../kotlin_maven_push.gradle'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 32
 
     defaultConfig {
         minSdkVersion 14
         //noinspection OldTargetApi
         targetSdkVersion 28
-        versionCode 371
-        versionName "3.7.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
@@ -18,19 +18,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    android {
-        lintOptions {
-            abortOnError false
-        }
+//    android {
+//        lintOptions {
+//            abortOnError false
+//        }
+//    }
+//    task intoJar(type: Copy) {
+//        delete 'build/libs/CalendarView.jar'
+//        from('build/intermediates/bundles/release/')
+//        into('build/libs/')
+//        include('classes.jar')
+//        rename ('classes.jar', 'CalendarView.jar')
+//    }
+//    intoJar.dependsOn(build)
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-    task intoJar(type: Copy) {
-        delete 'build/libs/CalendarView.jar'
-        from('build/intermediates/bundles/release/')
-        into('build/libs/')
-        include('classes.jar')
-        rename ('classes.jar', 'CalendarView.jar')
-    }
-    intoJar.dependsOn(build)
 }
 
 dependencies {
@@ -39,8 +43,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.annotation:annotation:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     testImplementation 'junit:junit:4.12'
+
 }
-apply from: '../script/gradle-jcenter-push.gradle'
